@@ -122,7 +122,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->ISBNNumber);?></td>
                                             <td class="center"><?php echo htmlentities($result->BookPrice);?></td>
-											<td class="center"><a href="issue-book2.php?ISBNNumber=<?php echo $result->ISBNNumber;?>&StudentID=<?php echo $result->StudentID;?>"><i class="fa fa-edit "></i></a> Issue&nbsp;&nbsp;</td>
+											<td class="center"><a href="issue-book2.php?ISBNNumber=<?php echo $result->ISBNNumber;?>&StudentID=<?php echo $result->StudentID;?>"><i class="fa fa-edit ">&nbsp; Issue &nbsp;</i></a></td>
                                         </tr>
 <?php $cnt=$cnt+1;}} ?>                                      
                                     </tbody>

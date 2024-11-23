@@ -107,7 +107,7 @@ if (isset($_POST['change'])) {
                   <input type="text" class="form-control1" name="vercode" maxlength="5" autocomplete="off" required style="height:25px;" />&nbsp;<img src="captcha.php">
                 </div>
 
-                <button type="submit" name="change" class="btn btn-info">Chnage Password</button> | <a href="index.php">Login</a>
+                <button type="submit" name="change" class="btn btn-info">Change Password</button> | <a href="index.php">Login</a>
               </form>
             </div>
           </div>
