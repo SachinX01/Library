@@ -90,12 +90,14 @@ if (strlen($_SESSION['login']) == 0) {
                                             <th>Category</th>
                                             <th>Publication Name</th>
                                             <th>ISBN </th>
-                                            <th>Price</th>
+                                            <!-- <th>Price</th> -->
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $sql = "SELECT tblbooks.BookName,tblbooks.Copies,tblbooks.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+                                        <!-- < ?php $sql = "SELECT tblbooks.BookName,tblbooks.Copies,tblbooks.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId"; -->
+                                        <?php $sql = "SELECT tblbooks.BookName,tblbooks.Copies,tblbooks.IssuedCopies,tblcategory.CategoryName,tblauthors.AuthorName,tblbooks.ISBNNumber,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId";
+
                                         $query = $dbh->prepare($sql);
                                         $query->execute();
                                         $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -110,8 +112,10 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <td class="center"><?php echo htmlentities($result->CategoryName); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->AuthorName); ?></td>
                                                         <td class="center"><?php echo htmlentities($result->ISBNNumber); ?></td>
-                                                        <td class="center"><?php echo htmlentities($result->BookPrice); ?></td>
-                                                        <td class="center"><a href="temp.php?ISBNNumber=<?php echo $result->ISBNNumber; ?>&BookName=<?php echo $result->BookName; ?>&AuthorName=<?php echo $result->AuthorName; ?>&CategoryName=<?php echo $result->CategoryName; ?>&BookPrice=<?php echo $result->BookPrice; ?>&StudName=<?php echo $_SESSION['username']; ?>&StudentID=<?php echo $_SESSION['stdid']; ?>
+                                                        <!-- <td class="center">< ?php echo htmlentities($result->BookPrice); ?></td> -->
+                                                        <!-- <td class="center"><a href="temp.php?ISBNNumber=< ?php echo $result->ISBNNumber; ?>&BookName=< ?php echo $result->BookName; ?>&AuthorName=< ?php echo $result->AuthorName; ?>&CategoryName=< ?php echo $result->CategoryName; ?>&BookPrice=< ?php echo $result->BookPrice; ?>&StudName=< ?php echo $_SESSION['username']; ?>&StudentID=< ?php echo $_SESSION['stdid']; ?>
+											"><button class="btn btn-primary" name="submit" id="submit" type="submit"><i class="fa fa-edit "></i> Request</button></td> -->
+                                            <td class="center"><a href="temp.php?ISBNNumber=<?php echo $result->ISBNNumber; ?>&BookName=<?php echo $result->BookName; ?>&AuthorName=<?php echo $result->AuthorName; ?>&CategoryName=<?php echo $result->CategoryName; ?>&StudName=<?php echo $_SESSION['username']; ?>&StudentID=<?php echo $_SESSION['stdid']; ?>
 											"><button class="btn btn-primary" name="submit" id="submit" type="submit"><i class="fa fa-edit "></i> Request</button></td>
                                                     </tr>
                                         <?php $cnt = $cnt + 1;

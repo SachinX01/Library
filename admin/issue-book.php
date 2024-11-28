@@ -23,7 +23,7 @@ if($lastInsertId)
 $_SESSION['msg']="Book issued successfully";
 
 
-$sql="update tblbooks set IssuedCopies=IssueCopies-1 where id=:bookid";
+$sql="update tblbooks set IssuedCopies=IssuedCopies-1 where id=:bookid";
 $query = $dbh->prepare($sql);
 $query->bindParam(':bookid',$bookid,PDO::PARAM_STR);
 $query->execute();
@@ -134,7 +134,7 @@ Issue a New Book
 
 
 <div class="form-group">
-<label>Book ID<span style="color:red;">*</span></label>
+<label>Book ISBN<span style="color:red;">*</span></label>
 <input class="form-control" type="text" name="bookid" id="bookid" onBlur="getbook()"  required="required" />
 </div>
 

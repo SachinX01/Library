@@ -11,23 +11,25 @@ if (strlen($_SESSION['alogin']) == 0) {
         $category = $_POST['category'];
         $author = $_POST['author'];
         $isbn = $_POST['isbn'];
-        $price = $_POST['price'];
+        // $price = $_POST['price'];
         $bookid = intval($_GET['bookid']);
         $Copies = ($_GET['Copies']);
-        $sql = "update tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,ISBNNumber=:isbn,BookPrice=:price,Copies=:Copies where id=:bookid";
+        // $sql = "update tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,ISBNNumber=:isbn,BookPrice=:price,Copies=:Copies where id=:bookid";
+        $sql = "update tblbooks set BookName=:bookname,CatId=:category,AuthorId=:author,ISBNNumber=:isbn,Copies=:Copies where id=:bookid";
+
         $query = $dbh->prepare($sql);
         $query->bindParam(':bookname', $bookname, PDO::PARAM_STR);
         $query->bindParam(':category', $category, PDO::PARAM_STR);
         $query->bindParam(':author', $author, PDO::PARAM_STR);
         $query->bindParam(':isbn', $isbn, PDO::PARAM_STR);
-        $query->bindParam(':price', $price, PDO::PARAM_STR);
+        // $query->bindParam(':price', $price, PDO::PARAM_STR;)
         $query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
         $query->bindParam(':Copies', $Copies, PDO::PARAM_STR);
         $query->execute();
         $_SESSION['msg'] = "Book info updated successfully";
         header('location:manage-books.php');
     }
-?>
+    ?>
     <!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -72,28 +74,32 @@ if (strlen($_SESSION['alogin']) == 0) {
                             <form role="form" method="post">
                                 <?php
                                 $bookid = intval($_GET['bookid']);
-                                $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblbooks.Copies,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
+                                // $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblbooks.Copies,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.ISBNNumber,tblbooks.BookPrice,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
+                                $sql = "SELECT tblbooks.BookName,tblcategory.CategoryName,tblbooks.Copies,tblcategory.id as cid,tblauthors.AuthorName,tblauthors.id as athrid,tblbooks.ISBNNumber,tblbooks.id as bookid from  tblbooks join tblcategory on tblcategory.id=tblbooks.CatId join tblauthors on tblauthors.id=tblbooks.AuthorId where tblbooks.id=:bookid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':bookid', $bookid, PDO::PARAM_STR);
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 $cnt = 1;
                                 if ($query->rowCount() > 0) {
-                                    foreach ($results as $result) {               ?>
+                                    foreach ($results as $result) { ?>
                                         <div class="form-group">
                                             <label>Book ID</label>
-                                            <input class="form-control" type="number" name="bookid" value="<?php echo htmlentities($result->bookid); ?>" readonly />
+                                            <input class="form-control" type="number" name="bookid"
+                                                value="<?php echo htmlentities($result->bookid); ?>" readonly />
                                         </div>
 
                                         <div class="form-group">
                                             <label>Book Name<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="text" name="bookname" value="<?php echo htmlentities($result->BookName); ?>" required />
+                                            <input class="form-control" type="text" name="bookname"
+                                                value="<?php echo htmlentities($result->BookName); ?>" required />
                                         </div>
 
                                         <div class="form-group">
                                             <label> Category<span style="color:red;">*</span></label>
                                             <select class="form-control" name="category" required="required">
-                                                <option value="<?php echo htmlentities($result->cid); ?>"> <?php echo htmlentities($catname = $result->CategoryName); ?></option>
+                                                <option value="<?php echo htmlentities($result->cid); ?>">
+                                                    <?php echo htmlentities($catname = $result->CategoryName); ?></option>
                                                 <?php
                                                 $status = 1;
                                                 $sql1 = "SELECT * from  tblcategory where Status=:status";
@@ -106,9 +112,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                         if ($catname == $row->CategoryName) {
                                                             continue;
                                                         } else {
-                                                ?>
-                                                            <option value="<?php echo htmlentities($row->id); ?>"><?php echo htmlentities($row->CategoryName); ?></option>
-                                                <?php }
+                                                            ?>
+                                                            <option value="<?php echo htmlentities($row->id); ?>">
+                                                                <?php echo htmlentities($row->CategoryName); ?></option>
+                                                        <?php }
                                                     }
                                                 } ?>
                                             </select>
@@ -118,7 +125,8 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         <div class="form-group">
                                             <label> Publication<span style="color:red;">*</span></label>
                                             <select class="form-control" name="author" required="required">
-                                                <option value="<?php echo htmlentities($result->athrid); ?>"> <?php echo htmlentities($athrname = $result->AuthorName); ?></option>
+                                                <option value="<?php echo htmlentities($result->athrid); ?>">
+                                                    <?php echo htmlentities($athrname = $result->AuthorName); ?></option>
                                                 <?php
 
                                                 $sql2 = "SELECT * from  tblauthors ";
@@ -131,9 +139,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                             continue;
                                                         } else {
 
-                                                ?>
-                                                            <option value="<?php echo htmlentities($ret->id); ?>"><?php echo htmlentities($ret->AuthorName); ?></option>
-                                                <?php }
+                                                            ?>
+                                                            <option value="<?php echo htmlentities($ret->id); ?>">
+                                                                <?php echo htmlentities($ret->AuthorName); ?></option>
+                                                        <?php }
                                                     }
                                                 } ?>
                                             </select>
@@ -141,20 +150,24 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                                         <div class="form-group">
                                             <label>ISBN Number<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="text" name="isbn" value="<?php echo htmlentities($result->ISBNNumber); ?>" required="required" />
-                                            <p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be unique</p>
+                                            <input class="form-control" type="text" name="isbn"
+                                                value="<?php echo htmlentities($result->ISBNNumber); ?>" required="required" />
+                                            <p class="help-block">An ISBN is an International Standard Book Number.ISBN Must be
+                                                unique</p>
                                         </div>
 
                                         <div class="form-group">
                                             <label>No of Copies<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="text" name="copies" value="<?php echo htmlentities($result->Copies); ?>" required="required" />
+                                            <input class="form-control" type="text" name="copies"
+                                                value="<?php echo htmlentities($result->Copies); ?>" required="required" />
                                         </div>
-
+<!-- 
                                         <div class="form-group">
                                             <label>Price in Rs<span style="color:red;">*</span></label>
-                                            <input class="form-control" type="text" name="price" value="<?php echo htmlentities($result->BookPrice); ?>" required="required" />
-                                        </div>
-                                <?php }
+                                            <input class="form-control" type="text" name="price"
+                                                value="< ?php echo htmlentities($result->BookPrice); ?>" required="required" />
+                                        </div> -->
+                                    <?php }
                                 } ?>
                                 <button type="submit" name="update" class="btn btn-info">Update </button>
 

@@ -27,7 +27,7 @@ header('location:reg-students.php');
 if(isset($_GET['id']))
 {
 $id=$_GET['id'];
-$status=1;
+$status=0;
 $sql = "update tblstudents set Status=:status  WHERE id=:id";
 $query = $dbh->prepare($sql);
 $query -> bindParam(':id',$id, PDO::PARAM_STR);

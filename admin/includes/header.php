@@ -34,7 +34,7 @@
                         <li><a href="dashboard.php">DASHBOARD</a></li>
 
                         <li>
-                            <a href="#" class="dropdown-toggle " id="ddlmenuItem" data-toggle="dropdown"> Categories <i class="fa fa-angle-down"></i></a>
+                            <a href="#" class="dropdown-toggle " id="ddlmenuItem" data-toggle="dropdown">Book Categories <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="add-category.php">Add Category</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="manage-categories.php">Manage Categories</a></li>

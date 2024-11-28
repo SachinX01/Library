@@ -11,7 +11,7 @@ if (strlen($_SESSION['login']) == 0) {
 	$BookName = $_GET['BookName'];
 	$AuthorName = $_GET['AuthorName'];
 	$CategoryName = $_GET['CategoryName'];
-	$BookPrice = $_GET['BookPrice'];
+	// $BookPrice = $_GET['BookPrice'];
 
 	$sql = "SELECT * from tblrequestedbookdetails where StudentID=:StudentID and ISBNNumber=:ISBNNumber";
 	$query = $dbh->prepare($sql);
@@ -34,7 +34,8 @@ if (strlen($_SESSION['login']) == 0) {
 			$_SESSION['msg'] = "You cannot request more than 2 books at a time";
 			header('location:request-a-book.php');
 		} else {
-			$sql = "INSERT INTO tblrequestedbookdetails(StudentID,StudName,BookName,CategoryName,AuthorName,ISBNNumber,BookPrice) VALUES(:StudentID,:StudName,:BookName,:CategoryName,:AuthorName,:ISBNNumber,:BookPrice)";
+			// $sql = "INSERT INTO tblrequestedbookdetails(StudentID,StudName,BookName,CategoryName,AuthorName,ISBNNumber,BookPrice) VALUES(:StudentID,:StudName,:BookName,:CategoryName,:AuthorName,:ISBNNumber,:BookPrice)";
+			$sql = "INSERT INTO tblrequestedbookdetails(StudentID,StudName,BookName,CategoryName,AuthorName,ISBNNumber) VALUES(:StudentID,:StudName,:BookName,:CategoryName,:AuthorName,:ISBNNumber)";
 			$query = $dbh->prepare($sql);
 			$query->bindParam(':StudentID', $StudentID, PDO::PARAM_STR);
 			$query->bindParam(':StudName', $StudName, PDO::PARAM_STR);
@@ -42,7 +43,7 @@ if (strlen($_SESSION['login']) == 0) {
 			$query->bindParam(':CategoryName', $CategoryName, PDO::PARAM_STR);
 			$query->bindParam(':AuthorName', $AuthorName, PDO::PARAM_STR);
 			$query->bindParam(':ISBNNumber', $ISBNNumber, PDO::PARAM_STR);
-			$query->bindParam(':BookPrice', $BookPrice, PDO::PARAM_STR);
+			// $query->bindParam(':BookPrice', $BookPrice, PDO::PARAM_STR);
 			$query->execute();
 			$lastInsertId = $dbh->lastInsertId();
 			$_SESSION['msg'] = "Book requested successfully";

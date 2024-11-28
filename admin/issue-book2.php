@@ -135,7 +135,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                 </div>
 
                                 <div class="form-group">
-                                    <label>BookID<span style="color:red;">*</span></label>
+                                    <label>Book ISBN<span style="color:red;">*</span></label>
                                     <input class="form-control" type="text" name="booikid" id="bookid" value="<?php echo htmlentities($bookid); ?>" onBlur="getbook()" required="required" />
                                 </div>
 
